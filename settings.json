@@ -1,0 +1,38 @@
+{
+  // Editor basic settings
+  "editor.accessibilitySupport": "off",
+  "editor.cursorBlinking": "smooth",
+  "editor.cursorSmoothCaretAnimation": "on",
+  "editor.cursorStyle": "block",
+  "editor.minimap.enabled": false,
+  "editor.tabSize": 2,
+  "editor.wordWrap": "on",
+
+  // File handling
+  "explorer.compactFolders": false,
+  "explorer.confirmDelete": false,
+  "explorer.confirmDragAndDrop": false,
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "files.trimTrailingWhitespace": true,
+
+  // Formatting
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "[css]": {
+    "editor.tabSize": 2
+  },
+
+  // Git settings
+  "git.confirmSync": false,
+  "git.suggestSmartCommit": false,
+
+  // Cline settings
+  "cline.modelSettings.o3Mini.reasoningEffort": "high",
+  "cline.preferredLanguage": "Japanese - 日本語",
+
+  // Other settings
+  "extensions.ignoreRecommendations": true,
+  "hediet.vscode-drawio.resizeImages": null,
+  "github.copilot.nextEditSuggestions.enabled": true
+}
