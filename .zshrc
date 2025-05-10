@@ -11,20 +11,27 @@ if type brew &>/dev/null; then
   autoload -Uz compinit && compinit
 fi
 
-# git-promptの読み込み
-source ~/.zsh/git-prompt.sh
+#プロンプト表示する度に変数を展開
+setopt prompt_subst
 
-# git-completionの読み込み
-fpath=(~/.zsh $fpath)
-zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.bash
-autoload -Uz compinit && compinit
+precmd () {
+  if [ -n "$(git status --short 2>/dev/null)" ];then
+    export GIT_HAS_DIFF="✗"
+    export GIT_NON_DIFF=""
+  else
+    export GIT_HAS_DIFF=""
+    export GIT_NON_DIFF="✔"
+  fi
+  # git管理されているか確認
+  git status --porcelain >/dev/null 2>&1
+  if [ $? -ne 0 ];then
+    export GIT_HAS_DIFF=""
+    export GIT_NON_DIFF=""
+  fi
+  export BRANCH_NAME=$(git branch --show-current 2>/dev/null)
+}
 
-# プロンプトのオプション表示設定
-GIT_PS1_SHOWDIRTYSTATE=true
-GIT_PS1_SHOWUNTRACKEDFILES=true
-GIT_PS1_SHOWSTASHSTATE=true
-GIT_PS1_SHOWUPSTREAM=auto
-
-# プロンプトの表示設定(好きなようにカスタマイズ可)
-setopt PROMPT_SUBST ; PS1='%F{cyan}%~%f %F{white}$(__git_ps1 "(%s)")%f
-\$ '
+PROMPT="
+%F{cyan}%m:%~%f"
+PROMPT=${PROMPT}'%F{green} ${BRANCH_NAME} ${GIT_NON_DIFF}%F{red}${GIT_HAS_DIFF}
+%f$ '
